@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="title">Fuonsei</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Estilo para el selector de idiomas */
+    #languageSwitcher {
+      background-color: white;
+      border-radius: 10px;
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      outline: none;
+      cursor: pointer;
+    }
+
+    #languageSwitcher option {
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+
+<header class="top-nav">
+  <div class="logo" data-i18n="logo">Fuonsei</div>
+  <nav class="main-menu"></nav> <!-- Menú limpio -->
+  <div class="actions">
+    <button class="lang-btn"></button> <!-- Ya sin el 🌐 -->
+    <select id="languageSwitcher" aria-label="Selector de idioma">
+      <option value="es">🇪🇸 Español</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="it">🇮🇹 Italiano</option>
+      <option value="pt">🇵🇹 Português</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="zh">🇨🇳 中文</option>
+    </select>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<main class="hero" id="home">
+  <div class="slideshow">
+    <div class="slide slide1"></div>
+    <div class="slide slide2"></div>
+    <div class="slide slide3"></div>
+    <div class="slide slide4"></div>
+    <div class="slide slide5"></div>
+    <div class="slide slide6"></div>
+    <div class="slide slide7"></div>
+    <div class="slide slide8"></div>
+    <div class="slideshow-overlay"></div>
+  </div>
+  <h2 class="subtitle" data-i18n="subtitle">TRADUCE EL MUNDO</h2>
+  <p class="subtext" data-i18n="subtext">El idioma nunca más será un obstáculo para conocer el mundo</p>
+</main>
+
+<aside class="side-menu" id="sideMenu">
+  <div class="side-content">
+    <div class="side-header">
+      <div class="side-logo" data-i18n="logo">Fuonsei</div>
+      <button class="close-btn" id="closeMenu">✕</button>
+    </div>
+    <ul>
+      <li><a href="index.html#home" data-i18n="menu.home">Home</a></li>
+      <li><a href="about.html" data-i18n="menu.about">Acerca de</a></li>
+      <li><a href="voice.html" target="_self" data-i18n="menu.voice">Traducción Vocal</a></li>
+      <li><a href="written.html" target="_self" data-i18n="menu.written">Traducción Escrita</a></li>
+      <li><a href="#share" data-i18n="menu.share">Compartir</a></li>
+      <li><a href="contact.html" data-i18n="menu.contact">Contacto</a></li>
+    </ul>
+  </div>
+</aside>
+
+<div class="overlay" id="overlay"></div>
+
+<script>
+  const toggleBtn = document.querySelector('.menu-toggle');
+  const closeBtn = document.getElementById('closeMenu');
+  const sideMenu = document.getElementById('sideMenu');
+  const overlay = document.getElementById('overlay');
+
+  const openMenu = () => {
+    sideMenu.classList.add('open');
+    overlay.classList.add('show');
+  };
+
+  const closeMenu = () => {
+    sideMenu.classList.remove('open');
+    overlay.classList.remove('show');
+  };
+
+  toggleBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+
+  // Cerrar menú al hacer clic en un link
+  document.querySelectorAll('.side-menu ul li a').forEach(link => {
+    link.addEventListener('click', () => {
+      sideMenu.classList.remove('open');
+      overlay.classList.remove('show');
+    });
+  });
+
+  // Función de compartir
+  document.querySelector('a[href="#share"]').addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const shareUrl = "https://mi-fuonsei-app.com"; // Cambialo por tu URL real
+    const shareData = {
+      title: "Fuonsei - Traducí el mundo",
+      text: "Probá Fuonsei, el traductor que rompe las barreras del idioma.",
+      url: shareUrl
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        console.log("Compartido con éxito");
+      } catch (err) {
+        console.warn("Error al compartir:", err);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        alert("🔗 Enlace copiado al portapapeles");
+      } catch (err) {
+        alert("⚠️ No se pudo copiar el enlace");
+      }
+    }
+  });
+
+  // Cambio de idioma manual con el selector
+  document.getElementById("languageSwitcher").addEventListener("change", (e) => {
+    const selectedLang = e.target.value;
+    setLanguage(selectedLang);
+  });
+</script>
+
+<!-- Tu script de traducción personalizado -->
+<script src="i18n.js"></script>
+
+</body>
+</html>

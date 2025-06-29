@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="title">Contacto - Fuonsei</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body.about-background {
+      background: linear-gradient(135deg, #000000, #0a0a2a, #000000);
+      background-size: 400% 400%;
+      min-height: 100vh;
+      padding: 40px 20px;
+      font-family: 'Arial', sans-serif;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: 'marcellus', serif;
+      font-size: 3rem;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      width: 140px;
+      height: 4px;
+      margin: 10px auto 0;
+      background: linear-gradient(90deg, white, #00ffff, #007bff, #8000ff, #ff0000, #ff8000, #ffff00, #00ff00);
+      background-size: 300%;
+      border-radius: 2px;
+      box-shadow: 0 0 10px #00ffff;
+      animation: underlineFade 6s linear infinite alternate;
+    }
+
+    @keyframes underlineFade {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .glass-box {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(16px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      color: white;
+      box-sizing: border-box;
+    }
+
+    .glass-box h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      text-align: center;
+      font-family: 'marcellus', serif;
+    }
+
+    .glass-box p {
+      font-size: 1.1rem;
+      margin: 10px 0;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    header {
+      max-width: 700px;
+      margin: 0 auto 20px auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    #languageSwitcher {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      font-size: 1rem;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body class="about-background">
+
+
+
+  <h1 data-i18n="contact.title">Contacto</h1>
+
+  <div class="glass-box">
+    <h3 data-i18n="contact.data">Datos</h3>
+    <p><strong data-i18n="contact.nameLabel">Nombre y Apellido:</strong> Rodrigo Acuña</p>
+    <p><strong data-i18n="contact.emailLabel">Correo Electrónico:</strong> roysacuna@gmail.com</p>
+    <p><strong data-i18n="contact.phoneLabel">Número Celular:</strong> +54 9 3815801600</p>
+  </div>
+
+  <script>
+    document.getElementById("languageSwitcher").addEventListener("change", (e) => {
+      const selectedLang = e.target.value;
+      setLanguage(selectedLang);
+    });
+  </script>
+
+  <script src="i18n.js"></script>
+</body>
+</html>

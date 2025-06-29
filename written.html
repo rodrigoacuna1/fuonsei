@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="title">Traducción Escrita - Fuonsei</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* (Tu CSS exacto aquí, igual al que me pasaste) */
+    body.about-background {
+      background: linear-gradient(135deg, #000000, #0a0a2a, #000000);
+      background-size: 400% 400%;
+      min-height: 100vh;
+      padding: 40px 20px;
+      font-family: 'Arial', sans-serif;
+      color: white;
+    }
+    h1 {
+      text-align: center;
+      font-family: 'marcellus', serif;
+      font-size: 3rem;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    h1::after {
+      content: "";
+      display: block;
+      width: 180px;
+      height: 4px;
+      margin: 10px auto 0;
+      background: linear-gradient(90deg, white, #00ffff, #007bff, #8000ff, #ff0000, #ff8000, #ffff00, #00ff00);
+      background-size: 300%;
+      border-radius: 2px;
+      box-shadow: 0 0 10px #00ffff;
+      animation: underlineFade 6s linear infinite alternate;
+    }
+    @keyframes underlineFade {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    .section {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      border: 3px solid white;
+      animation: borderGlow 8s linear infinite;
+      transition: max-height 0.4s ease;
+    }
+    @keyframes borderGlow {
+      0%   { border-color: white;      box-shadow: 0 0 15px white; }
+      12%  { border-color: #00ffff;    box-shadow: 0 0 15px #00ffff; }
+      25%  { border-color: #0000ff;    box-shadow: 0 0 15px #0000ff; }
+      37%  { border-color: #8000ff;    box-shadow: 0 0 15px #8000ff; }
+      50%  { border-color: #ff0000;    box-shadow: 0 0 15px #ff0000; }
+      62%  { border-color: #ff8000;    box-shadow: 0 0 15px #ff8000; }
+      75%  { border-color: #ffff00;    box-shadow: 0 0 15px #ffff00; }
+      87%  { border-color: #00ff00;    box-shadow: 0 0 15px #00ff00; }
+      100% { border-color: white;      box-shadow: 0 0 15px white; }
+    }
+    .upload-area {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .upload-btn {
+      padding: 15px 20px;
+      background-color: rgba(255,255,255,0.1);
+      border: 2px dashed #aaa;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: white;
+    }
+    .info-text, .dropdown, .button {
+      margin-top: 20px;
+      font-size: 1rem;
+      width: 100%;
+    }
+    .dropdown {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+    .hidden {
+      display: none;
+    }
+    .button {
+      padding: 12px;
+      border: 2px solid black;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .translate-btn {
+      background-color: #7CFC00;
+      color: white;
+    }
+    .reset-btn {
+      background-color: red;
+      color: white;
+      margin-top: 10px;
+    }
+    .loader {
+      margin: 20px auto;
+      border: 6px solid #ccc;
+      border-top: 6px solid #00ffff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .result-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      border: 3px solid #00ffff;
+      padding: 20px;
+      border-radius: 16px;
+      width: 80%;
+      max-width: 600px;
+      color: white;
+      font-size: 1.2rem;
+      box-shadow: 0 0 15px #00ffff;
+      z-index: 1000;
+      max-height: 60vh;
+      overflow-y: auto;
+      transition: all 0.4s ease;
+    }
+    .close-popup {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: white;
+      color: red;
+      border: 2px solid white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .result-popup-text {
+      text-shadow: 1px 1px 2px black;
+    }
+    #previewContainer {
+      margin-top: 20px;
+      text-align: center;
+      border: 2px solid #00ffff;
+      border-radius: 12px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      max-height: 400px;
+      overflow: auto;
+    }
+    #previewImage {
+      max-width: 100%;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body class="about-background">
+  <h1 data-i18n="title">Traducción Escrita</h1>
+
+  <div class="section">
+    <div class="upload-area">
+      <label class="upload-btn" onclick="handleUpload()" data-i18n="uploadLabel">📷 Subir Imagen</label>
+      <input type="file" id="imageInput" accept="image/*" capture="environment" style="display:none;" />
+    </div>
+
+    <div class="info-text" id="languageInfo" data-i18n="languageDetected">Idioma detectado: ...</div>
+
+    <div id="fallbackLangContainer" class="hidden">
+      <select class="dropdown" id="fallbackLang" aria-label="Seleccionar idioma de entrada">
+        <option value="" data-i18n="selectInputLang">🌐 Seleccionar idioma de entrada</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="ru">🇷🇺 Русский</option>
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="hi">🇮🇳 हिन्दी</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="no">🇳🇴 Norsk</option>
+        <option value="zh">🇨🇳 中文</option>
+        <option value="ko">🇰🇷 한국어</option>
+        <option value="nl">🇳🇱 Nederlands</option>
+        <option value="pt">🇧🇷 Português</option>
+        <option value="ja">🇯🇵 日本語</option>
+        <option value="sv">🇸🇪 Svenska</option>
+        <option value="ca">🇪🇸 Català</option>
+        <option value="zh-tw">🇹🇼 繁體中文</option>
+        <option value="he">🇮🇱 עברית</option>
+        <option value="tr">🇹🇷 Türkçe</option>
+      </select>
+    </div>
+
+    <select class="dropdown" id="outputLang" aria-label="Seleccionar idioma de salida">
+      <option value="" disabled selected hidden data-i18n="selectOutputLang">🌐 Elegir idioma de salida</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="it">🇮🇹 Italiano</option>
+      <option value="ru">🇷🇺 Русский</option>
+      <option value="pl">🇵🇱 Polski</option>
+      <option value="hi">🇮🇳 हिन्दी</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="no">🇳🇴 Norsk</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="nl">🇳🇱 Nederlands</option>
+      <option value="pt">🇧🇷 Português</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="sv">🇸🇪 Svenska</option>
+      <option value="ca">🇪🇸 Català</option>
+      <option value="zh-tw">🇹🇼 繁體中文</option>
+      <option value="he">🇮🇱 עברית</option>
+      <option value="tr">🇹🇷 Türkçe</option>
+    </select>
+
+    <button class="button translate-btn" onclick="translateImage()" data-i18n="btnTranslate">Traducir</button>
+    <button class="button reset-btn" onclick="location.reload()" data-i18n="btnReset">Reiniciar</button>
+
+    <div id="loader" class="loader" style="display:none;"></div>
+
+    <div id="previewContainer" class="hidden">
+      <img id="previewImage" alt="Vista previa de la imagen subida" />
+    </div>
+  </div>
+
+  <div id="resultPopup" class="result-popup" style="display:none;">
+    <button class="close-popup" onclick="closePopup()">✕</button>
+    <div class="result-popup-text" id="translatedResultText">...</div>
+  </div>
+
+  
+  
+
+  <!-- Scripts -->
+  <script src="i18n.js"></script>
+  <script src="written.js"></script>
+</body>
+</html>

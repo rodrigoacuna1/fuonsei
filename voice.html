@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="title">Traducción Vocal - Fuonsei</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body.about-background {
+      background: linear-gradient(135deg, #000000, #0a0a2a, #000000);
+      background-size: 400% 400%;
+      min-height: 100vh;
+      padding: 40px 20px;
+      font-family: 'Arial', sans-serif;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: 'marcellus', serif;
+      font-size: 3rem;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      width: 140px;
+      height: 4px;
+      margin: 10px auto 0;
+      background: linear-gradient(90deg, white, #00ffff, #007bff, #8000ff, #ff0000, #ff8000, #ffff00, #00ff00);
+      background-size: 300%;
+      border-radius: 2px;
+      box-shadow: 0 0 10px #00ffff;
+      animation: underlineFade 6s linear infinite alternate;
+    }
+
+    @keyframes underlineFade {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .section {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      border: 3px solid white;
+      animation: borderGlow 8s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0%   { border-color: white;      box-shadow: 0 0 15px white; }
+      12%  { border-color: #00ffff;    box-shadow: 0 0 15px #00ffff; }
+      25%  { border-color: #0000ff;    box-shadow: 0 0 15px #0000ff; }
+      37%  { border-color: #8000ff;    box-shadow: 0 0 15px #8000ff; }
+      50%  { border-color: #ff0000;    box-shadow: 0 0 15px #ff0000; }
+      62%  { border-color: #ff8000;    box-shadow: 0 0 15px #ff8000; }
+      75%  { border-color: #ffff00;    box-shadow: 0 0 15px #ffff00; }
+      87%  { border-color: #00ff00;    box-shadow: 0 0 15px #00ff00; }
+      100% { border-color: white;      box-shadow: 0 0 15px white; }
+    }
+
+    .section h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      font-family: 'merienda', serif;
+      margin-bottom: 15px;
+    }
+
+    .dropdown, .output {
+      margin: 10px 0;
+      width: 100%;
+      font-size: 1rem;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .record-btn {
+      margin: 20px auto;
+      display: block;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: crimson;
+      color: white;
+      font-size: 2rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .recording {
+      background-color: darkred;
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.5); }
+      70%  { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+    }
+
+    .translation-text {
+      margin-top: 20px;
+      background: rgba(255,255,255,0.08);
+      padding: 15px;
+      border-radius: 8px;
+      min-height: 60px;
+      font-size: 1.1rem;
+    }
+
+    header {
+      max-width: 700px;
+      margin: 0 auto 20px auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    #languageSwitcher {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      font-size: 1rem;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body class="about-background">
+
+
+
+  <h1 data-i18n="voice.title">Traducción Vocal</h1>
+
+  <div class="section" id="section1">
+    <h2 data-i18n="voice.user1">Usuario 1</h2>
+    <select class="dropdown" id="inputLang1" aria-label="Idioma de entrada usuario 1">
+      <option value="" disabled selected hidden data-i18n="voice.selectInput">🌐 Elegir idioma de entrada</option>
+    </select>
+    <select class="dropdown" id="outputLang1" aria-label="Idioma de salida usuario 1">
+      <option value="" disabled selected hidden data-i18n="voice.selectOutput">🌐 Elegir idioma de salida</option>
+    </select>
+    <button class="record-btn" id="recordBtn1" aria-label="Grabar usuario 1">🎤</button>
+    <div class="translation-text" id="translatedText1">...</div>
+  </div>
+
+  <div class="section" id="section2">
+    <h2 data-i18n="voice.user2">Usuario 2</h2>
+    <select class="dropdown" id="inputLang2" aria-label="Idioma de entrada usuario 2">
+      <option value="" disabled selected hidden data-i18n="voice.selectInput">🌐 Elegir idioma de entrada</option>
+    </select>
+    <select class="dropdown" id="outputLang2" aria-label="Idioma de salida usuario 2">
+      <option value="" disabled selected hidden data-i18n="voice.selectOutput">🌐 Elegir idioma de salida</option>
+    </select>
+    <button class="record-btn" id="recordBtn2" aria-label="Grabar usuario 2">🎤</button>
+    <div class="translation-text" id="translatedText2">...</div>
+  </div>
+
+  <script>
+    // Cambio de idioma con el selector
+    document.getElementById("languageSwitcher").addEventListener("change", (e) => {
+      const selectedLang = e.target.value;
+      setLanguage(selectedLang);
+    });
+  </script>
+
+  <script src="i18n.js"></script>
+  <script src="voice.js"></script>
+</body>
+</html>

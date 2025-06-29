@@ -1,0 +1,244 @@
+@font-face{
+  font-family: 'Cinzel';
+  src: url(/lang/Cinzel-Medium.ttf);
+  font-family: 'merienda';
+  src: url(/lang/Merienda-Light.ttf);
+  font-family: 'montserrat';
+  src: url(/lang/MontserratAlternates-ExtraLight.ttf);
+  font-family: 'noto';
+  src: url(/lang/NotoSerifGeorgian-ExtraLight.ttf);
+  font-family: 'concertone';
+  src: url(/lang/ConcertOne-Regular.ttf);
+  font-family: 'labrada';
+  src: url(/lang/Labrada-Thin.ttf);
+  font-family: 'marcellus';
+  src: url(/lang/MarcellusSC-Regular.ttf);
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden;
+  color: white;
+}
+
+
+
+/* SLIDESHOW DE IMÁGENES DE FONDO */
+.slideshow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: fade 40s infinite;
+}
+
+.slide1 { background-image: url('img/fondo1.jpg'); animation-delay: 0s; }
+.slide2 { background-image: url('img/fondo2.jpg'); animation-delay: 5s; }
+.slide3 { background-image: url('img/fondo3.jpg'); animation-delay: 10s; }
+.slide4 { background-image: url('img/fondo4.jpg'); animation-delay: 15s; }
+.slide5 { background-image: url('img/fondo5.jpg'); animation-delay: 20s; }
+.slide6 { background-image: url('img/fondo6.jpg'); animation-delay: 25s; }
+.slide7 { background-image: url('img/fondo7.jpg'); animation-delay: 30s; }
+.slide8 { background-image: url('img/fondo8.jpg'); animation-delay: 35s; }
+
+@keyframes fade {
+  0%   { opacity: 0; }
+  5%   { opacity: 1; }
+  15%  { opacity: 1; }
+  20%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.slideshow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+/* NAV SUPERIOR */
+.top-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+  background: transparent;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.main-menu a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+/* HERO CENTRAL */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.subtitle {
+  font-size: 3rem;
+  z-index: 2;
+  position: relative;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+  font-family: 'Cinzel', serif;
+}
+
+/* MENU DESLIZABLE */
+.side-menu {
+  position: fixed;
+  right: -300px;
+  top: 0;
+  height: 100%;
+  width: 300px;
+  background: rgba(30, 30, 30, 0.5);
+  backdrop-filter: blur(20px);
+  transition: right 0.4s ease;
+  z-index: 30;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-content {
+  padding: 40px 20px;
+}
+
+.side-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.side-logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.side-menu ul {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.side-menu ul li {
+  margin: 15px 0;
+}
+
+.side-menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.subtext {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #f0f0f0;
+  opacity: 0.85;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  font-family: 'labrada', serif;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .subtitle {
+    font-size: 2rem;
+  }
+
+  /* Esta regla oculta el menú principal (Contact, FAQ, About) en pantallas menores a 768px.
+     Comentala para que el menú siga visible en móviles y tablets. */
+  /*
+  .main-menu {
+    display: none;
+  }
+  */
+
+  .logo {
+    font-size: 1.2rem;
+  }
+}  
+
+

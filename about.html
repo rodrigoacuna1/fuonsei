@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="title">Acerca de - Fuonsei</title>
+  <style>
+    body.about-background {
+      background: linear-gradient(135deg, #000000, #0a0a2a, #000000);
+      background-size: 400% 400%;
+      min-height: 100vh;
+      padding: 40px 20px;
+      font-family: 'Arial', sans-serif;
+      color: white;
+    }
+
+    .about-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .about-subtitle {
+      text-align: center;
+      font-size: 1.3rem;
+      font-family: 'noto', serif;
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    .about-description {
+      max-width: 700px;
+      margin: 0 auto 60px auto;
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.6;
+      font-family: 'Arial', sans-serif;
+      text-align: left;
+    }
+
+    .glass-box {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+
+    .glass-box h3 {
+      font-family: 'concertone', serif;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .glass-box p {
+      font-size: 1rem;
+      line-height: 1.6;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .about-image {
+      margin-top: 20px;
+      width: 100%;
+      border-radius: 12px;
+      max-height: 280px;
+      object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+      .about-title {
+        font-size: 2.2rem;
+      }
+
+      .glass-box {
+        padding: 20px;
+      }
+
+      .glass-box h3 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="about-background">
+
+  <!-- HEADER limpio sin logo ni botón -->
+  
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="container">
+    <h1 class="about-title" data-i18n="about.title">Fuonsei</h1>
+    <p class="about-subtitle" data-i18n="about.subtitle">La gran llave políglota</p>
+
+    <p class="about-description" data-i18n="about.description">
+      Fuonsei ofrece una solución eficaz para las personas que no cuentan con conocimientos en idiomas, otorgando dos funciones clave para traducir: tanto voz como escritura.
+    </p>
+
+    <div class="glass-box">
+      <h3 data-i18n="about.vocal.title">Traducción Vocal</h3>
+      <p data-i18n="about.vocal.text">
+        Función que permite traducir tu voz en tiempo real. Solo tienes que elegir tu idioma nativo, hablar normalmente, y seleccionar a qué idioma quieres que se traduzca. Fuonsei se encargará del resto.
+      </p>
+      <img src="img/about1.png" alt="Traducción vocal" class="about-image">
+    </div>
+
+    <div class="glass-box">
+      <h3 data-i18n="about.written.title">Traducción Escrita</h3>
+      <p data-i18n="about.written.text">
+        Función que permite traducir textos presentes en imágenes. Solo tienes que subir una imagen de tu galería o tomar una foto, y luego elegir el idioma original de la imagen y a qué idioma quieres traducirla.
+      </p>
+      <img src="img/about2.png" alt="Traducción escrita" class="about-image">
+    </div>
+  </div>
+
+  <script>
+    // Cambio de idioma manual con el selector
+    document.getElementById("languageSwitcher").addEventListener("change", (e) => {
+      const selectedLang = e.target.value;
+      setLanguage(selectedLang);
+    });
+  </script>
+
+  <!-- Tu script de traducción personalizado -->
+  <script src="i18n.js"></script>
+
+</body>
+</html>
