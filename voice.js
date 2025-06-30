@@ -149,16 +149,21 @@ function speakText(text, lang) {
   window.speechSynthesis.speak(utter);
 }
 
-// Inicialización
+// Inicialización robusta (fix para móviles)
 window.onload = () => {
   loadInputLanguages("inputLang1");
   loadInputLanguages("inputLang2");
 
-  speechSynthesis.onvoiceschanged = () => {
+  const initialize = () => {
     loadOutputLanguages("outputLang1");
     loadOutputLanguages("outputLang2");
+    setupRecorder("recordBtn1", "inputLang1", "outputLang1", "translatedText1");
+    setupRecorder("recordBtn2", "inputLang2", "outputLang2", "translatedText2");
   };
 
-  setupRecorder("recordBtn1", "inputLang1", "outputLang1", "translatedText1");
-  setupRecorder("recordBtn2", "inputLang2", "outputLang2", "translatedText2");
+  if (speechSynthesis.getVoices().length > 0) {
+    initialize();
+  } else {
+    speechSynthesis.onvoiceschanged = initialize;
+  }
 };
