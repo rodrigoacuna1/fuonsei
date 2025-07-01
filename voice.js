@@ -21,16 +21,29 @@ const languagesInput = {
   fr_be: "🇧🇪 Français (BE)"
 };
 
-// Obtener la banderita para código de idioma
+// Mapear códigos a nombres legibles
+function getLangName(code) {
+  const names = {
+    "es": "Español", "en": "English", "fr": "Français", "de": "Deutsch",
+    "it": "Italiano", "pt": "Português", "ru": "Русский", "zh": "中文",
+    "ja": "日本語", "hi": "हिन्दी", "pl": "Polski", "ko": "한국어",
+    "sv": "Svenska", "zh-tw": "繁體中文", "nl": "Nederlands", "ga": "Gaeilge",
+    "en-au": "English (AU)", "fi": "Suomi", "fr-be": "Français (BE)"
+  };
+  const normalized = code.toLowerCase();
+  return names[normalized] || code;
+}
+
 function getEmojiFlag(code) {
   const flags = {
     es: "🇪🇸", en: "🇬🇧", fr: "🇫🇷", de: "🇩🇪", it: "🇮🇹", pt: "🇧🇷",
     ru: "🇷🇺", zh: "🇨🇳", ja: "🇯🇵", hi: "🇮🇳", pl: "🇵🇱", ko: "🇰🇷",
-    sv: "🇸🇪", zh_tw: "🇹🇼", nl: "🇳🇱", ga: "🇮🇪", en_au: "🇦🇺",
-    fi: "🇫🇮", fr_be: "🇧🇪"
+    sv: "🇸🇪", "zh-tw": "🇹🇼", nl: "🇳🇱", ga: "🇮🇪", "en-au": "🇦🇺",
+    fi: "🇫🇮", "fr-be": "🇧🇪"
   };
-  const base = code.split("-")[0].toLowerCase();
-  return flags[code] || flags[base] || "🌐";
+  const normalized = code.toLowerCase();
+  const base = normalized.split("-")[0];
+  return flags[normalized] || flags[base] || "🌐";
 }
 
 // Cargar idiomas de entrada
@@ -44,7 +57,7 @@ function loadInputLanguages(selectId) {
   }
 }
 
-// Cargar idiomas de salida usando las voces disponibles
+// Cargar idiomas de salida con nombre y bandera
 function loadOutputLanguages(selectId) {
   const select = document.getElementById(selectId);
   const voices = window.speechSynthesis.getVoices();
@@ -52,12 +65,13 @@ function loadOutputLanguages(selectId) {
 
   voices.forEach(voice => {
     const langCode = voice.lang.toLowerCase();
-    const baseCode = langCode.split("-")[0];
+    const shortCode = langCode.split("-")[0];
     if (!added.has(langCode)) {
       const emoji = getEmojiFlag(langCode);
+      const name = getLangName(langCode);
       const option = document.createElement("option");
       option.value = langCode;
-      option.textContent = `${emoji} ${voice.lang}`;
+      option.textContent = `${emoji} ${name}`;
       select.appendChild(option);
       added.add(langCode);
     }
@@ -149,7 +163,7 @@ function speakText(text, lang) {
   window.speechSynthesis.speak(utter);
 }
 
-// Inicialización robusta (fix para móviles)
+// Inicialización robusta
 window.onload = () => {
   loadInputLanguages("inputLang1");
   loadInputLanguages("inputLang2");

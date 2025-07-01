@@ -1,4 +1,4 @@
-@font-face{
+@font-face {
   font-family: 'Cinzel';
   src: url(/lang/Cinzel-Medium.ttf);
   font-family: 'merienda';
@@ -15,8 +15,6 @@
   src: url(/lang/MarcellusSC-Regular.ttf);
 }
 
-
-
 * {
   margin: 0;
   padding: 0;
@@ -29,8 +27,6 @@ body, html {
   overflow-x: hidden;
   color: white;
 }
-
-
 
 /* SLIDESHOW DE IMÁGENES DE FONDO */
 .slideshow {
@@ -49,26 +45,20 @@ body, html {
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0;
-  animation: fade 40s infinite;
+  opacity: 1; /* Ahora siempre visible */
+  /* Se elimina la animación */
 }
 
-.slide1 { background-image: url('img/fondo1.jpg'); animation-delay: 0s; }
-.slide2 { background-image: url('img/fondo2.jpg'); animation-delay: 5s; }
-.slide3 { background-image: url('img/fondo3.jpg'); animation-delay: 10s; }
-.slide4 { background-image: url('img/fondo4.jpg'); animation-delay: 15s; }
-.slide5 { background-image: url('img/fondo5.jpg'); animation-delay: 20s; }
-.slide6 { background-image: url('img/fondo6.jpg'); animation-delay: 25s; }
-.slide7 { background-image: url('img/fondo7.jpg'); animation-delay: 30s; }
-.slide8 { background-image: url('img/fondo8.jpg'); animation-delay: 35s; }
+.slide1 { background-image: url('img/fondo1.jpg'); }
 
+/* Ya no usamos animaciones, así que eliminamos esto:
 @keyframes fade {
   0%   { opacity: 0; }
   5%   { opacity: 1; }
   15%  { opacity: 1; }
   20%  { opacity: 0; }
   100% { opacity: 0; }
-}
+} */
 
 .slideshow-overlay {
   position: absolute;
@@ -221,16 +211,13 @@ body, html {
   font-family: 'labrada', serif;
 }
 
-
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .subtitle {
     font-size: 2rem;
   }
 
-  /* Esta regla oculta el menú principal (Contact, FAQ, About) en pantallas menores a 768px.
-     Comentala para que el menú siga visible en móviles y tablets. */
-  /*
+  /* Comentá esta parte si querés mantener visible el menú en móviles
   .main-menu {
     display: none;
   }
@@ -239,6 +226,4 @@ body, html {
   .logo {
     font-size: 1.2rem;
   }
-}  
-
-
+}

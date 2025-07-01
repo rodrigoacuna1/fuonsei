@@ -279,26 +279,26 @@ const translations = {
   
 
   
-  // ✅ Versión con almacenamiento local:
+// ✅ Versión con almacenamiento local:
 function setLanguage(lang) {
-    localStorage.setItem("lang", lang); // Guarda selección
-    const elements = document.querySelectorAll("[data-i18n]");
-    elements.forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      if (translations[lang] && translations[lang][key]) {
-        el.textContent = translations[lang][key];
-      }
-    });
-  }
-  
-  // ✅ Al cargar, recupera idioma guardado o usa el del navegador
-  const savedLang = localStorage.getItem("lang");
-  const browserLang = navigator.language.slice(0, 2);
-  
-  if (savedLang && translations[savedLang]) {
-    setLanguage(savedLang);
-  } else if (translations[browserLang]) {
-    setLanguage(browserLang);
-  } else {
-    setLanguage("es");
-  }
+  localStorage.setItem("lang", lang); // Guarda selección
+  const elements = document.querySelectorAll("[data-i18n]");
+  elements.forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[lang] && translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+}
+
+// ✅ Al cargar, recupera idioma guardado o usa el del navegador
+const savedLang = localStorage.getItem("lang");
+const browserLang = navigator.language.slice(0, 2);
+
+if (savedLang && translations[savedLang]) {
+  setLanguage(savedLang);
+} else if (translations[browserLang]) {
+  setLanguage(browserLang);
+} else {
+  setLanguage("es");
+}
