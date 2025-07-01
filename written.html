@@ -6,7 +6,6 @@
   <title data-i18n="title">Traducción Escrita - Fuonsei</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* (Tu CSS exacto aquí, igual al que me pasaste) */
     body.about-background {
       background: linear-gradient(135deg, #000000, #0a0a2a, #000000);
       background-size: 400% 400%;
@@ -169,6 +168,17 @@
   </style>
 </head>
 <body class="about-background">
+
+  <!-- Selector de idioma -->
+  <select id="languageSwitcher" aria-label="Selector de idioma">
+    <option value="es">🇪🇸 Español</option>
+    <option value="en">🇬🇧 English</option>
+    <option value="fr">🇫🇷 Français</option>
+    <option value="it">🇮🇹 Italiano</option>
+    <option value="pt">🇵🇹 Português</option>
+    <option value="zh">🇨🇳 中文</option>
+  </select>
+
   <h1 data-i18n="title">Traducción Escrita</h1>
 
   <div class="section">
@@ -182,49 +192,13 @@
     <div id="fallbackLangContainer" class="hidden">
       <select class="dropdown" id="fallbackLang" aria-label="Seleccionar idioma de entrada">
         <option value="" data-i18n="selectInputLang">🌐 Seleccionar idioma de entrada</option>
-        <option value="es">🇪🇸 Español</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="it">🇮🇹 Italiano</option>
-        <option value="ru">🇷🇺 Русский</option>
-        <option value="pl">🇵🇱 Polski</option>
-        <option value="hi">🇮🇳 हिन्दी</option>
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="no">🇳🇴 Norsk</option>
-        <option value="zh">🇨🇳 中文</option>
-        <option value="ko">🇰🇷 한국어</option>
-        <option value="nl">🇳🇱 Nederlands</option>
-        <option value="pt">🇧🇷 Português</option>
-        <option value="ja">🇯🇵 日本語</option>
-        <option value="sv">🇸🇪 Svenska</option>
-        <option value="ca">🇪🇸 Català</option>
-        <option value="zh-tw">🇹🇼 繁體中文</option>
-        <option value="he">🇮🇱 עברית</option>
-        <option value="tr">🇹🇷 Türkçe</option>
+        <!-- opciones de idiomas aquí (omitidas para ahorrar espacio, están en tu código) -->
       </select>
     </div>
 
     <select class="dropdown" id="outputLang" aria-label="Seleccionar idioma de salida">
       <option value="" disabled selected hidden data-i18n="selectOutputLang">🌐 Elegir idioma de salida</option>
-      <option value="es">🇪🇸 Español</option>
-      <option value="en">🇬🇧 English</option>
-      <option value="fr">🇫🇷 Français</option>
-      <option value="it">🇮🇹 Italiano</option>
-      <option value="ru">🇷🇺 Русский</option>
-      <option value="pl">🇵🇱 Polski</option>
-      <option value="hi">🇮🇳 हिन्दी</option>
-      <option value="de">🇩🇪 Deutsch</option>
-      <option value="no">🇳🇴 Norsk</option>
-      <option value="zh">🇨🇳 中文</option>
-      <option value="ko">🇰🇷 한국어</option>
-      <option value="nl">🇳🇱 Nederlands</option>
-      <option value="pt">🇧🇷 Português</option>
-      <option value="ja">🇯🇵 日本語</option>
-      <option value="sv">🇸🇪 Svenska</option>
-      <option value="ca">🇪🇸 Català</option>
-      <option value="zh-tw">🇹🇼 繁體中文</option>
-      <option value="he">🇮🇱 עברית</option>
-      <option value="tr">🇹🇷 Türkçe</option>
+      <!-- opciones de idiomas aquí (omitidas para ahorrar espacio, están en tu código) -->
     </select>
 
     <button class="button translate-btn" onclick="translateImage()" data-i18n="btnTranslate">Traducir</button>
@@ -242,11 +216,8 @@
     <div class="result-popup-text" id="translatedResultText">...</div>
   </div>
 
-  
-  
-
   <!-- Scripts -->
   <script src="i18n.js"></script>
   <script src="written.js"></script>
 </body>
-</html>  
+</html>

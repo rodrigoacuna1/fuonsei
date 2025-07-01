@@ -34,31 +34,26 @@ const loading = document.getElementById("loader");
 const closeBtn = document.querySelector(".close-popup");
 const fallbackContainer = document.getElementById("fallbackLangContainer");
 const fallbackSelect = document.getElementById("fallbackLang");
-
 const previewContainer = document.getElementById("previewContainer");
 const previewImage = document.getElementById("previewImage");
-
 const languageSwitcher = document.getElementById("languageSwitcher");
 
 let extractedText = "";
 let sourceLang = "";
+let currentLang = "es";
 
-// Función para traducir textos UI usando i18n
 function translateUI() {
-  // Transcribe todos los elementos con data-i18n
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
     const txt = translations[currentLang]?.[key];
     if (txt) {
-      if (el.placeholder !== undefined) {
+      if ("placeholder" in el) {
         el.placeholder = txt;
       } else {
         el.textContent = txt;
       }
     }
   });
-
-  // Textos dinámicos fijos
   detectedLang.textContent = translations[currentLang]?.languageDetected || "Idioma detectado: ...";
   translateBtn.textContent = translations[currentLang]?.btnTranslate || "Traducir";
   resetBtn.textContent = translations[currentLang]?.btnReset || "Reiniciar";
@@ -68,20 +63,30 @@ function translateUI() {
   closeBtn.textContent = "✕";
 }
 
-let currentLang = "es";
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem("lang", lang);
+}
 
 function init() {
-  // Detectar idioma guardado o navegador
   const savedLang = localStorage.getItem("lang");
   const browserLang = navigator.language.slice(0, 2);
   if (savedLang && translations[savedLang]) currentLang = savedLang;
   else if (translations[browserLang]) currentLang = browserLang;
 
-  languageSwitcher.value = currentLang;
+  if (languageSwitcher) {
+    languageSwitcher.value = currentLang;
+    languageSwitcher.addEventListener("change", e => {
+      setLanguage(e.target.value);
+      translateUI();
+      if (previewImage.src) previewImage.alt = translations[currentLang]?.imgAltPreview || "Vista previa";
+      detectedLang.textContent = translations[currentLang]?.languageDetected || "Idioma detectado: ...";
+    });
+  }
+
   setLanguage(currentLang);
   translateUI();
 
-  // Cargar idiomas en selects
   for (const [code, label] of Object.entries(outputLangs)) {
     const option = document.createElement("option");
     option.value = code;
@@ -96,19 +101,6 @@ function init() {
   }
 }
 
-languageSwitcher.addEventListener("change", e => {
-  currentLang = e.target.value;
-  localStorage.setItem("lang", currentLang);
-  setLanguage(currentLang);
-  translateUI();
-  // Actualizar alt de preview y otros textos dinámicos si hace falta
-  if (previewImage.src) {
-    previewImage.alt = translations[currentLang]?.imgAltPreview || "Vista previa";
-  }
-  detectedLang.textContent = translations[currentLang]?.languageDetected || "Idioma detectado: ...";
-});
-
-// Manejo de upload con preview y OCR
 window.handleUpload = () => {
   const confirmCam = confirm(translations[currentLang]?.confirmCamera || "¿Usar cámara? (Cancelar para galería)");
   const input = document.createElement("input");
@@ -125,14 +117,12 @@ window.handleUpload = () => {
         previewContainer.classList.remove("hidden");
       };
       reader.readAsDataURL(file);
-
       extractTextFromImage(file);
     }
   };
   input.click();
 };
 
-// OCR con ocr.space
 async function extractTextFromImage(file) {
   loading.style.display = "block";
   detectedLang.textContent = translations[currentLang]?.languageDetecting || "Idioma detectado: ...";
@@ -172,7 +162,6 @@ async function extractTextFromImage(file) {
   }
 }
 
-// Detectar idioma con libretranslate
 async function detectLang(text) {
   try {
     const res = await fetch("https://libretranslate.de/detect", {
@@ -202,7 +191,6 @@ async function detectLang(text) {
   }
 }
 
-// Traducir texto extraído
 translateBtn.addEventListener("click", async () => {
   const target = outputSelect.value;
   const source = sourceLang || fallbackSelect.value;
@@ -245,12 +233,10 @@ translateBtn.addEventListener("click", async () => {
   }
 });
 
-// Cerrar popup
 closeBtn.addEventListener("click", () => {
   resultBox.style.display = "none";
 });
 
-// Resetear todo
 resetBtn.addEventListener("click", () => {
   detectedLang.textContent = translations[currentLang]?.languageDetected || "Idioma detectado: ...";
   fallbackSelect.selectedIndex = 0;
@@ -264,5 +250,4 @@ resetBtn.addEventListener("click", () => {
   previewContainer.classList.add("hidden");
 });
 
-// Inicialización
-init();
+window.onload = init;
