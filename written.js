@@ -1,5 +1,3 @@
-// written.js adaptado a i18n con setLanguage y traducción dinámica
-
 const outputLangs = {
   es: "🇪🇸 Español",
   en: "🇬🇧 English",
@@ -135,7 +133,7 @@ async function extractTextFromImage(file) {
   try {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("apikey", "helloworld");
+    formData.append("apikey", "K84315047888957"); // ← ← ← TU CLAVE ACÁ
     formData.append("language", "mul");
     formData.append("OCREngine", "2");
 

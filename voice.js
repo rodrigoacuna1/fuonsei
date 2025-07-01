@@ -21,7 +21,6 @@ const languagesInput = {
   fr_be: "🇧🇪 Français (BE)"
 };
 
-// Mapear códigos a nombres legibles
 function getLangName(code) {
   const names = {
     "es": "Español", "en": "English", "fr": "Français", "de": "Deutsch",
@@ -46,7 +45,6 @@ function getEmojiFlag(code) {
   return flags[normalized] || flags[base] || "🌐";
 }
 
-// Cargar idiomas de entrada
 function loadInputLanguages(selectId) {
   const select = document.getElementById(selectId);
   for (const [code, label] of Object.entries(languagesInput)) {
@@ -57,7 +55,6 @@ function loadInputLanguages(selectId) {
   }
 }
 
-// Cargar idiomas de salida con nombre y bandera
 function loadOutputLanguages(selectId) {
   const select = document.getElementById(selectId);
   const voices = window.speechSynthesis.getVoices();
@@ -78,7 +75,6 @@ function loadOutputLanguages(selectId) {
   });
 }
 
-// Configurar grabación y traducción
 function setupRecorder(btnId, inputSelectId, outputSelectId, outputTextId) {
   const btn = document.getElementById(btnId);
   const output = document.getElementById(outputTextId);
@@ -109,7 +105,7 @@ function setupRecorder(btnId, inputSelectId, outputSelectId, outputTextId) {
         btn.classList.remove("recording");
         isRecording = false;
 
-        const translated = await translateText(text, inputLangSelect.value, outputLangSelect.value);
+        const translated = await translateText(text, lang, outputLangSelect.value);
         output.textContent = `💬 ${translated}`;
         speakText(translated, outputLangSelect.value);
       };
@@ -136,7 +132,6 @@ function setupRecorder(btnId, inputSelectId, outputSelectId, outputTextId) {
   });
 }
 
-// Función para traducir el texto
 async function translateText(text, from, to) {
   try {
     const res = await fetch("https://libretranslate.de/translate", {
@@ -144,26 +139,25 @@ async function translateText(text, from, to) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         q: text,
-        source: from,
+        source: from.split("-")[0],
         target: to.split("-")[0],
         format: "text"
       })
     });
     const data = await res.json();
-    return data.translatedText;
+    return data.translatedText || "(sin traducción)";
   } catch (e) {
-    return "Error al traducir.";
+    console.error("Error al traducir:", e);
+    return "❌ Error al traducir.";
   }
 }
 
-// Leer el texto con voz
 function speakText(text, lang) {
   const utter = new SpeechSynthesisUtterance(text);
   utter.lang = lang;
   window.speechSynthesis.speak(utter);
 }
 
-// Inicialización robusta
 window.onload = () => {
   loadInputLanguages("inputLang1");
   loadInputLanguages("inputLang2");
